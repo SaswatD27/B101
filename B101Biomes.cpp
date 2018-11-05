@@ -1,4 +1,4 @@
-	/*Biome Types
+		/*Biome Types
 	1. Plains: weak to Anthrax, Bubonic Plague; resistant to Tuberculosis
 	2. Mountains: weak to Tuberculosis, Anthrax; resistant to Cholera 
 	3. Forests: weak to Tuberculosis, Bubonic Plague; resistant to Anthrax
@@ -125,8 +125,20 @@ class place
 				break;
 			default://Lol srsly?
 				break;
+		}
+		if(ncqr>30)
+		bcr+=2;
 	}
-	int attack();
+	int bcrcountdn()
+	{
+		assignbcr(ncqr);
+		while(bcr!=0)
+		{
+			bcr--;
+		}
+	}
+}
+		
 }Biome[36],*current;
 
 int main()
