@@ -203,6 +203,7 @@ class place
 	{
 		cqr=0;
 	}
+	int assignbcr(microbe *micro); //ncqr is a global/in scope int variable wrt to the object denoting how many biomes have been conquered 
 	void gotoneigh(place *current)
 	{
 		int b;
@@ -210,7 +211,10 @@ class place
 		srand(time(NULL));	
 		b=(rand()%5)+1; 		
 		if(neighbour[b]->cqr==0)
-		current=this->neighbour[b];
+		{
+			current=current->neighbour[b];
+			current->assignbcr(micro);
+		}
 		else
 		{
 			int chkemp=0;
@@ -225,21 +229,24 @@ class place
 			cout<<endl<<"Continent CONQUERED!";
 			//gotta think of intercontinental migration
 		}
-	}
-	int assignbcr(microbe *micro); //ncqr is a global/in scope int variable wrt to the object denoting how many biomes have been conquered 
-	int countdn(microbe *micro, place *current)
+	}	
+}Biome[36],*current;
+int countdn(microbe *micro, place *current)
+{
+	current->assignbcr(micro);
+	while(micro->BER!=0)
 	{
-		assignbcr(micro);
-		while(current->BCR!=0)
+		current->BCR--;
+		micro->BER--;
+		micro->BMR--;
+		if(BMR==0)
+		mutate(micro->BMR,micro->BER);//call functions and code that runs for each step here and modify the parameters of this function as necessary
+		if(BCR==0)
 		{
-			current->BCR--;
-			micro->BER--;
-			micro->BMR--;
-			if(BMR==0)
-			mutate(micro->BMR,micro->BER);//call functions and code that runs for each step here and modify the parameters of this function as necessary
+			current->gotoneigh(current);
 		}
 	}
-}Biome[36],*current;
+}
 void Africa(place *current, microbe *micro)
 {
 	int m=rand()%100;
@@ -370,9 +377,7 @@ int place::assignbcr(microbe *micro)
 		else if(micro->ncqr>30)
 		BCR+=2;
 }
-int attack()
-{
-	
+
 int main()
 {
 	int a,b,c;
