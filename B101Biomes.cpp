@@ -54,10 +54,11 @@
       - Coasts: Baltic Coast
 	- Islands: Greenland, Spanish Islands*/
 #include<iostream>
+#include<unistd.h>
 using namespace std;
 class place
 {
-	int biometype,continent,bcr,cqr,disease;
+	int biometype,continent,bcr,cqr,disease; //cqr checks if the biome in question has been owned or not
 	char name[50];
 	place *neighbour[6];
 	public:
@@ -68,7 +69,8 @@ class place
 	void gotoneigh(place *current)
 	{
 		int b;
-		st:		
+		st:	
+		srand(time(NULL));	
 		b=(rand()%5)+1; 		
 		if(*neighbour[b].cqr==0)
 		current=this->neighbour[b];
@@ -87,41 +89,61 @@ class place
 			//gotta think of intercontinental migration
 		}
 	}
-	int assignbcr(int ncqr) //ncqr is a global/in scope int variable wrt to the object denoting how many biomes have been conquered 
+	int assignbcr(int ncqr,int ber) //ncqr is a global/in scope int variable wrt to the object denoting how many biomes have been conquered 
 	{
 		bcr=5;
 		int strength=0;
+		if(ber==200)
+		Oceania();
 		switch (biometype)
 		{
 			case 1:if(disease==1||disease==4)
 			       bcr--;
 				else if(disease==3)
-				bcr++;
+				{	
+					if(resnull==1)			
+					bcr++;
+				}
 				break;
 			case 2:if(disease==3||disease==1)
 			       bcr--;
 				else if(disease==2)
-				bcr++;
+				{	
+					if(resnull==1)			
+					bcr++;
+				}
 				break;
 			case 3:if(disease==3||disease==4)
 			       bcr--;
 				else if(disease==1)
-				bcr++;
+				{	
+					if(resnull==1)			
+					bcr++;
+				}
 				break;
 			case 4:if(disease==2||disease==4)
 			       bcr--;
 				else if(disease==1)
-				bcr++;
+				{	
+					if(resnull==1)			
+					bcr++;
+				}
 				break;
 			case 5:if(disease==1||disease==2)
 			       bcr--;
-				else if(disease=4)
-				bcr++;
+				else if(disease==4)
+				{	
+					if(resnull==1)			
+					bcr++;
+				}
 				break;
 			case 6:if(disease==2||disease==3)
 			       bcr--;
 				else if(disease==4)
-				bcr++;
+				{	
+					if(resnull==1)			
+					bcr++;
+				}
 				break;
 			default://Lol srsly?
 				break;
@@ -139,11 +161,94 @@ class place
 		}
 	}
 }
-		
 }Biome[36],*current;
-
+/*Now, the list of continental bonuses- what benefit do you get for starting on a continent? (This bonus remains constant throughout the game; does not change when you shift continents)
+1. Africa: At the beginning of the game, there is a  15% chance that the BCR will decrease by 1.
+2. Asia: At each mutation, there is a 25% chance that you will get an extra mutation.
+3. Europe (Challenge Mode): BER decreases by 5 each time you receive a mutation.
+4. Oceania: At the start of the game there is a 15% chance that all biome resistances are neglected.
+5. North America: At each colonization of a new biome, there is a 5% chance that you will colonize another region. 
+6. South America: If BER becomes zero, there is a 25% chance that you will be revived ONCE with a BER of 10.*/
+class microbe
+{
+	char mname[20];
+	int ber;
+	int continenti;
+	public:
+	int revive; //1 or 0
+	microbe *micro=&microbe;
+	void mutate();//Krishna's mutation function goes ici
+	void contbonus(int continenti)
+	{
+		switch (continenti)
+		{
+			case 1:Asia();
+				break;
+			case 2:Africa();
+				break;
+			case 3:SAm();
+				break;
+			case 4:NAm();
+				break;
+			case 5://Oceania() is called elsewhere
+				break;
+			case 6:Europe();
+				break;
+			default:break;
+		}
+	}
+}
+//continental bonuses: insert into appropriate places, will add appropriate parameters later
+void Africa(int ber)
+{
+	int m=rand()%100;
+	if(m>=1&&m<=15&&ber==200)//200 = initial value of ber	
+	*current->bcr--;
+}
+void Asia(int bmr)
+{
+	int m=rand()%100;
+	if(m>=1&&m<=25&&bmr==0)
+	mutate();//whatever you have named the mutation choice function
+}
+void Europe(int bmr,int ber)
+{
+	if(bmr==0)
+	ber-=5;
+}	
+void NAm()
+{
+	if(*current->cqr==1&&*current->bcr==0)
+	{
+		srand(time(NULL));
+		int m=rand()%5;
+		if(m==0)
+		{		
+			*current->gotoneigh(*current);
+			*current->cqr=1;
+		}
+	}
+}
+inline void Oceania(int continenti)
+{
+	srand(time(NULL));	
+	int m=rand()%100,resnull=0;
+	if(continenti==5&&m>=1&&m<=15)
+	resnull=1;
+}
+void SAm(int ber,int revived)
+{
+	srand(time(NULL));
+	int m=rand()%100;	
+	if(revived==0&&ber==0) //revived is an int variable that checks if Lazarus is not trying to cheat the reaper for the second time
+	{
+		if(m>=1&&m<=25)
+		ber=10;
+	}
+}
 int main()
 {
+	int ncqr;
 	for(int i=0;i<36;i++)
 	{
 		Biome[i].biometype=((i+1)%6)+1;
