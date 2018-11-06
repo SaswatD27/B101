@@ -204,7 +204,7 @@ class place
 		cqr=0;
 	}
 	int assignbcr(microbe *micro); //ncqr is a global/in scope int variable wrt to the object denoting how many biomes have been conquered 
-	void gotoneigh(place *current)
+	void gotoneigh(place *current,microbe *micro)
 	{
 		int b;
 		st:	
@@ -239,11 +239,11 @@ int countdn(microbe *micro, place *current)
 		current->BCR--;
 		micro->BER--;
 		micro->BMR--;
-		if(BMR==0)
+		if(micro->BMR==0)
 		mutate(micro->BMR,micro->BER);//call functions and code that runs for each step here and modify the parameters of this function as necessary
-		if(BCR==0)
+		if(current->BCR==0)
 		{
-			current->gotoneigh(current);
+			current->gotoneigh(current,micro);
 		}
 	}
 }
@@ -296,7 +296,7 @@ void SAm(microbe *micro)
 }
 void microbe::contbonus(microbe *micro)
 {
-		switch (continenti)
+		switch (micro->continenti)
 		{
 			case 1:Asia(micro);
 				break;
@@ -527,13 +527,14 @@ int main()
    }
 	cout<<endl<<"Choose a continent"<<endl<<"1.Asia"<<endl<<"2.Africa"<<endl<<"3.South America"<<endl<<"4.North America"<<endl<<"5.Oceania"<<endl<<"6.Europe";
 	cin>>micro->continenti;
-	current->continent=micro->continenti;
 	srand(time(NULL));
 	int bmi=rand()%6;
 	bmi+=(micro->continenti)*10;
 	current=&Biome[bmi];
-	
+	current->continent=micro->continenti;
+	countdn(micro,current);
     sleep(2);
+	micro->contbonus(micro);
 	inibiome();
 	int ncqr;
 	for(int i=0;i<36;i++)
