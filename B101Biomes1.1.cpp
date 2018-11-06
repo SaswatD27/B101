@@ -169,86 +169,86 @@ void SAm(microbe *micro)
 }
 void microbe::contbonus(microbe *micro)
 {
-		switch (continenti)
-		{
-			case 1:Asia(micro);
-				break;
-			case 2:Africa(current,micro);
-				break;
-			case 3:SAm(micro);
-				break;
-			case 4:NAm();
-				break;
-			case 5://Oceania() is called elsewhere
-				break;
-			case 6:Europe(micro);
-				break;
-			default:break;
-		}
+	switch (continenti)
+	{
+		case 1:Asia(micro);
+			break;
+		case 2:Africa(current,micro);
+			break;
+		case 3:SAm(micro);
+			break;
+		case 4:NAm();
+			break;
+		case 5://Oceania() is called elsewhere
+			break;
+		case 6:Europe(micro);
+			break;
+		default:break;
+	}
 }
 int place::assignbcr(microbe *micro)
 {
-		bcr=5;
-		int strength=0;
-		if(micro->ber==200)
-		Oceania(current,micro);
-		switch (biometype)
-		{
-			case 1:if(disease==1||disease==4)
-			       bcr--;
-				else if(disease==3)
-				{	
-					if(resnull==1)			
-					bcr++;
-				}
-				break;
-			case 2:if(disease==3||disease==1)
-			       bcr--;
-				else if(disease==2)
-				{	
-					if(resnull==1)			
-					bcr++;
-				}
-				break;
-			case 3:if(disease==3||disease==4)
-			       bcr--;
-				else if(disease==1)
-				{	
-					if(resnull==1)			
-					bcr++;
-				}
-				break;
-			case 4:if(disease==2||disease==4)
-			       bcr--;
-				else if(disease==1)
-				{	
-					if(resnull==1)			
-					bcr++;
-				}
-				break;
-			case 5:if(disease==1||disease==2)
-			       bcr--;
-				else if(disease==4)
-				{	
-					if(resnull==1)			
-					bcr++;
-				}
-				break;
-			case 6:if(disease==2||disease==3)
-			       bcr--;
-				else if(disease==4)
-				{	
-					if(resnull==1)			
-					bcr++;
-				}
-				break;
-			default://Lol srsly?
-				break;
-		}
-		if(micro->ncqr>20&&micro->ncqr<=30)
-		bcr++;
-		else if(micro->ncqr>30)
-		bcr+=2;
+	bcr=5;
+	int strength=0;
+	if(micro->ber==200)
+	Oceania(current,micro);
+	switch (biometype)
+	{
+		case 1:if(disease==1||disease==4)
+		       bcr--;
+			else if(disease==3)
+			{	
+				if(resnull==1)			
+				bcr++;
+			}
+			break;
+		case 2:if(disease==3||disease==1)
+		       bcr--;
+			else if(disease==2)
+			{	
+				if(resnull==1)			
+				bcr++;
+			}
+			break;
+		case 3:if(disease==3||disease==4)
+		       bcr--;
+			else if(disease==1)
+			{	
+				if(resnull==1)			
+				bcr++;
+			}
+			break;
+		case 4:if(disease==2||disease==4)
+		       bcr--;
+			else if(disease==1)
+			{	
+				if(resnull==1)			
+				bcr++;
+			}
+			break;
+		case 5:if(disease==1||disease==2)
+		       bcr--;
+			else if(disease==4)
+			{	
+				if(resnull==1)			
+				bcr++;
+			}
+			break;
+		case 6:if(disease==2||disease==3)
+		       bcr--;
+			else if(disease==4)
+			{	
+				if(resnull==1)			
+				bcr++;
+			}
+			break;
+		default://Lol srsly?
+			break;
+	}
+	if(micro->ncqr>20&&micro->ncqr<=30)
+	bcr++;
+	else if(micro->ncqr>30)
+	bcr+=2;
 }
 int main()
 {
