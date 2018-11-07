@@ -72,28 +72,25 @@ using namespace std;
 class place
 {
 	public:
-	int biometype,continent,BCR,cqr,disease,resnull=0; //cqr checks if the biome in question has been owned or not
+	int biometype,continent,BCR,cqr; //cqr checks if the biome in question has been owned or not
 	char name[50];
 	place()
 	{
 		cqr=0;
 	}
-	void assignbcr(microbe mcrb,place p); //ncqr is a global/in scope int variable wrt to the object denoting how many biomes have been conquered 
-	void gotoneigh(int ct[],microbe mcrb,place p[]);//p=Biome[ct[0]],p[]=Biome[ct[0]][]
 }Biome[6][6];
 class microbe
 {
 	public:
 	char mname[20];
-	int BER,BMR,continenti, ncqr, revived; //revived=1 or 0
+	int BER,BMR,continenti, ncqr,disease; 
 	microbe()
 	{
 		BER=200;
 		ncqr=0;
-		revived=0;
 		BMR=5;
 	}
-void countdn(int ct[], int BER,)
+/*void countdn(int ct[], int BER)
 {
 	int lowestRate = 3;
 	int mutaratemp;
@@ -109,58 +106,58 @@ void countdn(int ct[], int BER,)
 	string mutaname;//add BCR as parameter
 	while(BER!=0)
 	{
-	srand (time (NULL));
-	mutarate = rand () % ((highestRate - lowestRate) + 1) + lowestRate;
-	mutaratemp=mutarate;
-	for (int i = mutarate; i > 0; i--)
-	{
-		cout << "You will receive a mutation in " << mutarate << " turns." <<endl;
-		--mutarate;
-		sleep (2.5);
-	}
-	if (mutarate == 0)
-	{
-		mutanum = rand () % ((mutalast - mutafirst) + 1) + mutafirst;
-		cout << "You have received a new mutation! It is mutation number " <<mutanum << ". "<<endl;
-		switch (mutanum)
+		srand (time (NULL));
+		mutarate = rand () % ((highestRate - lowestRate) + 1) + lowestRate;
+		mutaratemp=mutarate;
+		for (int i = mutarate; i > 0; i--)
 		{
-			case 1:
-			mutaname = "Favoured spread";
-			cout << "It is the mutation of " << mutaname <<". Its effect is that the country colonization rate decreases by 1. "<<endl;
-			Biome[ct[0]][ct[1]].BCR = 4;
-			break;
-			case 2:
-			mutaname = "Impeded spread";
-			cout << "It is the mutation of " << mutaname <<". Its effect is that the country colonization rate increases by 1. "<<endl;
-			Biome[ct[0]][ct[1]].BCR = 6;
-			break;
-			case 3:
-			mutaname = "Strain Evolution";
-			cout << "It is the mutation of " << mutaname <<
-		  	    ". Its effect is that the the number of turns left before Eradication increases between 5 and 15."<<endl;;
-		        BER_rise = rand () % ((BER_rise_max - BER_rise_min) + 1) + BER_rise_min;
-		        BER = BER + BER_rise;
-		        cout << "The new rate of eradication is: " << BER << ". "<<endl;
-		        break;
-			case 4:
-		        mutaname = "Strain Extinction";
-		        cout << "It is the mutation of " << mutaname <<
-		  	    ". Its effect is that the number of turns left before eradication decreases by a number between 1 and 5."<<endl;
-		        BER_fall = rand () % ((5 - 1) + 1) + 1;
-			BER = BER - BER_fall;
-			cout << "The new rate of eradication is: " << BER << ". "<<endl;
-			break;
-			case 5:
-		        mutaname = "Severe Symptoms";
-		        cout << "It is the mutation of " << mutaname <<
+			cout << "You will receive a mutation in " << mutarate << " turns." <<endl;
+			--mutarate;
+			sleep (2.5);
+		}
+		if (mutarate == 0)
+		{
+			mutanum = rand () % ((mutalast - mutafirst) + 1) + mutafirst;
+			cout << "You have received a new mutation! It is mutation number " <<mutanum << ". "<<endl;
+			switch (mutanum)
+			{
+				case 1:
+				mutaname = "Favoured spread";
+				cout << "It is the mutation of " << mutaname <<". Its effect is that the country colonization rate decreases by 1. "<<endl;
+				Biome[ct[0]][ct[1]].BCR = 4;
+				break;
+				case 2:
+				mutaname = "Impeded spread";
+				cout << "It is the mutation of " << mutaname <<". Its effect is that the country colonization rate increases by 1. "<<endl;
+				Biome[ct[0]][ct[1]].BCR = 6;
+				break;
+				case 3:
+				mutaname = "Strain Evolution";
+				cout << "It is the mutation of " << mutaname <<
+			  	    ". Its effect is that the the number of turns left before Eradication increases between 5 and 15."<<endl;;
+			        BER_rise = rand () % ((BER_rise_max - BER_rise_min) + 1) + BER_rise_min;
+			        BER = BER + BER_rise;
+			        cout << "The new rate of eradication is: " << BER << ". "<<endl;
+			        break;
+				case 4:
+			        mutaname = "Strain Extinction";
+			        cout << "It is the mutation of " << mutaname <<
+			  	    ". Its effect is that the number of turns left before eradication decreases by a number between 1 and 5."<<endl;
+			        BER_fall = rand () % ((5 - 1) + 1) + 1;
+				BER = BER - BER_fall;
+				cout << "The new rate of eradication is: " << BER << ". "<<endl;
+				break;
+				case 5:
+			        mutaname = "Severe Symptoms";
+			        cout << "It is the mutation of " << mutaname <<
 		  	    ". Its effect is that the number of turns left before mutation decreases by 1 on either side."<<endl;
-		        highestRate = highestRate - 1;
-		        lowestRate = lowestRate - 1;
-		        break;
-		      case 6:
+			        highestRate = highestRate - 1;
+			        lowestRate = lowestRate - 1;
+			        break;
+			      case 6:
 		        mutaname = "Weakening Symptoms";
-		        cout << "It is the mutation of " << mutaname <<
-		  	    ". Its effect is that the number of turns left before mutation increases by 1 on either end."<<endl;
+			        cout << "It is the mutation of " << mutaname <<
+			  	    ". Its effect is that the number of turns left before mutation increases by 1 on either end."<<endl;
 		        highestRate = highestRate + 1;
 		        lowestRate = lowestRate + 1;
 		        break;
@@ -190,28 +187,84 @@ void countdn(int ct[], int BER,)
 		  	    cout<<"Oops, sorry! You did not receive a mutation this time. Maybe you will evolve next time! "<<endl;
 		    }
 		    cout << " Rate of country colonization is now " << Biome[ct[0]][ct[1]].BCR << ". "<<endl;
-		}
+		
 			BER--;
 			Biome[ct[0]][ct[1]].BCR--;
 			if(Biome[ct[0]][ct[1]].BCR==0)
 			{
 				cout<<endl<<Biome[ct[0]][ct[1]].continent<<" CONQUERED";			
 				Biome[ct[0]][ct[1]].cqr=1;
-				Biome[ct[0]][ct[1]].gotoneigh(ct,mcrb,Biome[ct[0]]);
+				gotoneigh(ct,mcrb,Biome[ct[0]]);
 			}
 				cout<<"You have "<<BER<<" turns before eradication."<<endl;
 		    sleep(2);
-		}
+		
 	
-	
+	}*/
 		 //Krishna's mutation function goes here
 		  //Added!
-	}
-	void contbonus(microbe mcrb);
 }mcrb;
 int ct[2];
 
-void place::gotoneigh(int ct[],microbe mcrb,place p[])//p=Biome[ct[0]],p[]=Biome[ct[0]][]
+
+
+void assignbcr(microbe mcrb,place p)
+{
+		p.BCR=5;
+		if(mcrb.BER==200)
+		switch (p.biometype)
+		{
+			case 1:if(mcrb.disease==1||mcrb.disease==4)
+			       p.BCR--;
+				else if(mcrb.disease==3)
+				{			
+					p.BCR++;
+				}
+				break;
+			case 2:if(mcrb.disease==3||mcrb.disease==1)
+			       p.BCR--;
+				else if(mcrb.disease==2)
+				{		
+					p.BCR++;
+				}
+				break;
+			case 3:if(mcrb.disease==3||mcrb.disease==4)
+			       p.BCR--;
+				else if(mcrb.disease==1)
+				{	
+					p.BCR++;
+				}
+				break;
+			case 4:if(mcrb.disease==2||mcrb.disease==4)
+			       p.BCR--;
+				else if(mcrb.disease==1)
+				{			
+					p.BCR++;
+				}
+				break;
+			case 5:if(mcrb.disease==1||mcrb.disease==2)
+			       p.BCR--;
+				else if(mcrb.disease==4)
+				{				
+					p.BCR++;
+				}
+				break;
+			case 6:if(mcrb.disease==2||mcrb.disease==3)
+			       p.BCR--;
+				else if(mcrb.disease==4)
+				{				
+					p.BCR++;
+				}
+				break;
+			default://Lol srsly?
+				break;
+		}
+		if(mcrb.ncqr>20&&mcrb.ncqr<=30)
+		p.BCR++;
+		else if(mcrb.ncqr>30)
+		p.BCR+=2;
+}
+void gotoneigh(int ct[],microbe mcrb,place p[])//p=Biome[ct[0]],p[]=Biome[ct[0]][]
 	{
 		int b;
 		st:	
@@ -221,7 +274,7 @@ void place::gotoneigh(int ct[],microbe mcrb,place p[])//p=Biome[ct[0]],p[]=Biome
 		{
 			ct[1]=b;
 
-			p[ct[1]].assignbcr(mcrb,p[b]);
+			assignbcr(mcrb,p[b]);
 		}
 		else
 		{
@@ -238,136 +291,6 @@ void place::gotoneigh(int ct[],microbe mcrb,place p[])//p=Biome[ct[0]],p[]=Biome
 			//gotta think of intercontinental migration
 		}
 	}	
-void Africa(int ct[], microbe mcrb)
-{
-	int m=rand()%100;
-	if(m>=1&&m<=15&&mcrb.BER==200)//200 = initial value of ber	
-	Biome[ct[0]][ct[1]].BCR--;
-}
-void Asia(microbe mcrb)
-{
-	int m=rand()%100;
-	if(m>=1&&m<=25&&mcrb.BMR==0)
-	mcrb.mutate(mcrb.BMR,mcrb.BER);//whatever you have named the mutation choice function
-}
-void Europe(microbe mcrb)
-{
-	if(mcrb.BMR==0)
-	mcrb.BER-=5;
-}	
-void NAm()
-{
-	if(Biome[ct[0]][ct[1]].cqr==1&&Biome[ct[0]][ct[1]].BCR==0)
-	{
-		srand(time(NULL));
-		int m=rand()%5;
-		if(m==0)
-		{		
-			Biome[ct[0]][ct[1]].gotoneigh(ct,mcrb,Biome[ct[0]]);
-			Biome[ct[0]][ct[1]].cqr=1;
-		}
-	}
-}
-inline void Oceania(int ct[], microbe mcrb)
-{
-	srand(time(NULL));	
-	int m=rand()%100;
-	if(mcrb.continenti==5&&m>=1&&m<=15)
-	Biome[ct[0]][ct[1]].resnull=1;
-}
-void SAm(microbe mcrb)
-{
-	srand(time(NULL));
-	int m=rand()%100;	
-	if(mcrb.revived==0&&mcrb.BER==0) //revived is an int variable that checks if Lazarus is not trying to cheat the reaper for the second time
-	{
-		if(m>=1&&m<=25)
-		mcrb.BER=10;
-	}
-}
-void microbe::contbonus(microbe mcrb)
-{
-		switch (mcrb.continenti)
-		{
-			case 1:Asia(mcrb);
-				break;
-			case 2:Africa(ct,mcrb);
-				break;
-			case 3:SAm(mcrb);
-				break;
-			case 4:NAm();
-				break;
-			case 5://Oceania() is called elsewhere
-				break;
-			case 6:Europe(mcrb);
-				break;
-			default:break;
-		}
-}
-void place::assignbcr(microbe mcrb,place p)
-{
-		p.BCR=5;
-		if(mcrb.BER==200)
-		Oceania(ct,mcrb);
-		switch (biometype)
-		{
-			case 1:if(disease==1||disease==4)
-			       p.BCR--;
-				else if(disease==3)
-				{	
-					if(resnull==1)			
-					p.BCR++;
-				}
-				break;
-			case 2:if(disease==3||disease==1)
-			       p.BCR--;
-				else if(disease==2)
-				{	
-					if(resnull==1)			
-					p.BCR++;
-				}
-				break;
-			case 3:if(disease==3||disease==4)
-			       p.BCR--;
-				else if(disease==1)
-				{	
-					if(resnull==1)			
-					p.BCR++;
-				}
-				break;
-			case 4:if(disease==2||disease==4)
-			       p.BCR--;
-				else if(disease==1)
-				{	
-					if(resnull==1)			
-					p.BCR++;
-				}
-				break;
-			case 5:if(disease==1||disease==2)
-			       p.BCR--;
-				else if(disease==4)
-				{	
-					if(resnull==1)			
-					p.BCR++;
-				}
-				break;
-			case 6:if(disease==2||disease==3)
-			       p.BCR--;
-				else if(disease==4)
-				{	
-					if(resnull==1)			
-					p.BCR++;
-				}
-				break;
-			default://Lol srsly?
-				break;
-		}
-		if(mcrb.ncqr>20&&mcrb.ncqr<=30)
-		p.BCR++;
-		else if(mcrb.ncqr>30)
-		p.BCR+=2;
-}
-
 int main()
 {
 	int a,b,c,d,e,cont;
@@ -507,9 +430,9 @@ int main()
 	int bmi=rand()%6;
 	ct[0]=cont;
 	ct[1]=bmi;
-	Biome[ct[0]][ct[1]].assignbcr(mcrb,Biome[ct[0]][ct[1]]);
-	mcrb.contbonus(mcrb);
-	mcrb.countdn(mcrb,ct);
+	mcrb.disease=disease_choice;
+	assignbcr(mcrb,Biome[ct[0]][ct[1]]);
+	countdn(mcrb,ct);
     sleep(2);
 	
 	for(int i=0;i<36;i++)
