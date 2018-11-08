@@ -154,6 +154,11 @@ int assignbcr(microbe mcrb,place p)
 }
 void gotoneigh(int ct[],microbe mcrb,place Biome[6][6])//p=Biome[ct[0]],p[]=Biome[ct[0]][]
 	{
+		if(ncqr==36)
+		{
+			cout<<"You da boss.";
+			exit(0);
+		}
 		int b;
 		st:	
 		srand(time(NULL));	
