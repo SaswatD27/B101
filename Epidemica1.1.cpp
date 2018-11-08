@@ -87,7 +87,7 @@ class microbe
 	int BER,BMR,continenti, ncqr,disease; 
 	microbe()
 	{
-		BER=100;
+		BER=150;
 		ncqr=0;
 		BMR=5;
 	}
@@ -99,7 +99,7 @@ int baseBCR;
 int assignbcr(microbe mcrb,place p)
 {
 		int BCR=6;
-		if(mcrb.BER==100)
+		if(mcrb.BER==150)
 		switch (p.biometype)
 		{
 			case 1:if(mcrb.disease==1||mcrb.disease==4)
