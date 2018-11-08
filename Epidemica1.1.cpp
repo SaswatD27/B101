@@ -1,3 +1,4 @@
+
 /*Biome Types
 	1. Plains: weak to Anthrax, Bubonic Plague; resistant to Tuberculosis
 	2. Mountains: weak to Tuberculosis, Anthrax; resistant to Cholera 
@@ -97,7 +98,7 @@ int ct[2];
 int baseBCR;
 int assignbcr(microbe mcrb,place p)
 {
-		int BCR=5;
+		int BCR=6;
 		if(mcrb.BER==200)
 		switch (p.biometype)
 		{
@@ -150,13 +151,15 @@ int assignbcr(microbe mcrb,place p)
 		BCR++;
 		else if(mcrb.ncqr>30)
 		BCR+=2;
+		if(BCR<=3)
+		BCR=3;
 		return BCR;
 }
 void gotoneigh(int ct[],microbe mcrb,place Biome[6][6])//p=Biome[ct[0]],p[]=Biome[ct[0]][]
 	{
-		if(ncqr==36)
+		if(mcrb.ncqr==36)
 		{
-			cout<<"You da boss.";
+			cout<<"YOU DA REAL SCOURGE OF HUMANKIND!"<<endl<<"CONGRATULATIONS, you have conquered the WORLD!";
 			exit(0);
 		}
 		int b;
@@ -260,12 +263,14 @@ void microbe::countdn(int ct[], microbe mcrb)
 			cout<<endl<<"You have been ERADICATED";
 			if(Biome[ct[0]][ct[1]].BCR<=0)
 			{
-				cout<<endl<<Biome[ct[0]][ct[1]].name<<" CONQUERED";			
+				mcrb.ncqr++;
+				cout<<endl<<Biome[ct[0]][ct[1]].name<<" CONQUERED";
+				cout<<endl<<"No. of Biomes conquered - "<<mcrb.ncqr;			
 				Biome[ct[0]][ct[1]].cqr=1;
 				gotoneigh(ct,mcrb,Biome);
 				cout<<endl<<"Arrived at "<<Biome[ct[0]][ct[1]].name<<" in "<<Biome[ct[0]][ct[1]].contname<<"."<<endl<<"Biome Type - "<<Biome[ct[0]][ct[1]].btype;
 			}
-			sleep (2);
+			sleep (1);
 		}
 		if (mutarate == 0&&mcrb.BER!=0)
 		{
@@ -337,7 +342,7 @@ void microbe::countdn(int ct[], microbe mcrb)
 				cout<<"Oops, sorry! You did not receive a mutation this time. Maybe you will evolve next time! "<<endl;
 			}
 			
-			sleep(2);
+			sleep(1);
 		}
 	}
 }	
@@ -426,195 +431,101 @@ int main()
 		}
 	}
   cout<<"Welcome to Epidemica, the disease spread simulator!"<<endl;
-  cout <<"In this game/simulator, you play the role of a deadly disease whose only goal is to spread across the world!"<<endl;
-  cout <<
-    "Before we jump into it, let's begin more conventionally. What is your name, dear player?"
-    << endl;
+  cout<<"Here, you play the role of a deadly disease whose sole purpose is to clense the world!"<<endl;
+  cout<<"From what?"<<endl;
+  cout<<"Deep down you know the answer!"<<endl;
+  cout<<"HUMANS!"<<endl;
+  cout<<"Before we begin the assault, let us have some formalities brushed aside."<<endl;
+  cout<<"What is your name, dear friend?"<<endl;
   string player_name;
-    getline(cin, player_name);
-    cout << "Well, welcome, " << player_name <<
-    "! In a short while, we will be a deadly disease and we will be infecting our first human!"
-    << endl;
-    cout <<
-    "What's your goal in this virulent party? Are you inspired by Thanos to slay humanity?"
-    << endl;
-    cout <<
-    "Or are you a purist disease seeking to cleanse planet Earth of its most widespread disease- filthy humans?"
-    << endl;
-    cout <<
-    "Ah, but is your real motive simply the base desire of making yourself survive the longest you can?"
-    << endl;
-    sleep(2);
-    cout <<
-    "Whatever your motives to seek revenge might be, do know that humanity will not be an easy foe; they will fight back, and hard!"
-    << endl;
-    cout << "Now, my beloved plague-mongerer " << player_name <<
-    ", it's time to select your disease." << endl;
-    cout <<
-    "Here are your choices of disease, some of the most virulent things to hit humanity, both in the past, the present and possibly in the future: "
-    << endl;
-    cout << "Drumroll: " << endl;
-  for (int i = 0; i < 10; i++)
-    {
-    cout << ". "<<endl;
-        sleep(1);
-    }
-    int whocares1, whocares2, whocares3, whocares4;
-  cout <<
-    "1. Anthrax. A disease caused by Bacillus anthracis, Anthrax have spores that can live for a long, long time."
-    << endl;
-    cout<<"Its symptoms include high fever, fatigue, flu-like symptoms, shock, and in later stages, meningitis. "<<endl;
-  cout << "A recent proliferation in biowarfare in the future has caused inhalatory anthrax, the most dangerous form, to be a serious threat."<<endl;
-cout<<"Anthrax is strong in Coasts, Mountains, and Plains Biomes, but is weak in Forests and Desert-Plateau-Mesa Biomes."<<endl;
-cout<<"Enter 1 in the upcoming selection box to choose Anthrax! "<<endl<<"Enter any number to continue: "<<endl;
-cin>>whocares1;
-cout<<endl;
-cout<<"2. Cholera. A disease caused by the bacterium Vibrio cholerae, Cholera is spread through contaminated water."<<endl;
-cout<<"The pollution of drinking water sources has led to cholera being a highly virulent disease."<<endl;
-cout<<"Its symptoms include diarrhoea, dehydration, vomiting and cramps."<<endl;
-cout<<"Cholera is strong in Desert-Plateau-Mesa, Coasts, and Island Biomes, but is weak in Mountain biomes."<<endl;
-cout<<"Enter 2 in the upcoming selection box to choose cholera!"<<endl<<"Enter any number to continue: "<<endl;
-cin>>whocares2;
-cout<<endl;
-cout<<"3. Tuberculosis. Caused by the bacterium Mycobacterium tuberculosis. "<<endl;
-cout<<"Tuberculosis, also called consumption, phthisis or just TB, is a deadly disease spread via air."<<endl;
-cout<<"In the future, increasing population may present a problem in maintaining people at a safe distance away from each other enough to prevent TB's spread, although the disease is generally latent."<<endl;
-cout<<"Tuberculosis is strong in Mountains, Forests, and Island biomes, but is weak in Plains biomes."<<endl;
-cout<<"Enter 3 in the upcoming selection box to choose tuberculosis!"<<endl<<"Enter any number to continue: "<<endl;
-cin>>whocares3;
-cout<<endl;
-cout<<"4. Bubonic Plague. Caused by the bacterium Yersinia pestis."<<endl;
-cout<<"The proliferation of rats in urban areas, and their fleas has brought about a rise of bubonic plague cases."<<endl;
-cout<<"Once in the 1350s in Europe, the Black Death caused the death of 50 percent of the continent's population. "<<endl;
-cout<<"Its symptoms include buboes (lymphnode swellings), flu-like symptoms, chills, headaches, and fatigue."<<endl;
-cout<<"Bubonic Plague is strong in Plains, Forests and Desert-Plateau-Mesa biomes, but is weak in Coasts and Island biomes."<<endl;
-cout<<"Enter 4 in the upcoming selection box to choose bubonic plague!"<<endl<<"Enter any number to proceed to the disease selection screen: "<<endl;
-cin>>whocares4;
-cout<<endl;
-label:
-cout<<"Now, dear "<<player_name<<", which disease would you like? ";
-int disease_choice;
-string disease_name;
-cin>>disease_choice;
-switch(disease_choice)
-{
-    case 1:
-        disease_name="Anthrax";
-        cout<<"You have chosen Anthrax! Good choice! Let's go dominate the world together, "<<player_name<<"! ";
-        break;
-    case 2:
-        disease_name="Cholera";
-        cout<<"You have chosen Cholera! Good choice! Let's go dominate the world together, "<<player_name<<"! ";
-        break;
-    case 3:
-        disease_name="Tuberculosis";
-        cout<<"You have chosen Tuberculosis! Good choice! Let's go dominate the world together, "<<player_name<<"! ";
-        break;
-    case 4:
-        disease_name="BubonicPlague";
-        cout<<"You have chosen Bubonic Plague! Good choice! Let's go dominate the world together, "<<player_name<<"! ";
-        break;
-    default:
-        cout<<"That does not seem like a valid choice you have entered there, "<<player_name<<"! Try again? "<<endl;
-        goto label;
-}
-sleep(2);
-cout<<"Any good disease must now be looking for a place to begin. Let us select a continent to begin on out of 6 populated regions: "<<endl;
-cout<<"(sorry, antarctica)"<<endl;
-cout<<"You are birthed by infecting a single 'Patient Zero' in the continent of your choice."<<endl<<endl;
-sleep(2);
-cout<<"Before we do this, the developers would like to share a statement: "<<endl;
-cout<<"Hi! This game was made as a fun activity to show you how disease spread is affected by the world around us :) "<<endl;
-cout<<"We have assumed a linear as opposed to an exponential population disease spread; do see the SIR model solutions for exponential spread."<<endl;
-cout<<"We wish you all the best as an evil disease trying to eradicate humanity!"<<endl;
-cout<<"If you wipe out the world, tell us! You get prizes! :D"<<endl;
-sleep(5);
-int whocaresc1, whocaresc2, whocaresc3, whocaresc4, whocaresc5, whocaresc6;
-cout<<"Back to the game now: "<<endl<<endl;
-cout<<"Your first continent choice is Asia. A sweeping large landmass with many different populations and geographical features."<<endl;
-cout<<"(let's get down to business to defeat the Huns?)"<<endl;
-cout<<"Asia has been divided into 6 biomes: "<<endl;
-cout<<"Plains: Indo-Gangetic Plains. "<<endl<<"Mountains: Pamir Knot. "<<endl<<"Forests: Borneo. "<<endl;
-cout<<"Desert-Plateaux-Mesa: Karakum. "<<endl<<"Coasts: Indian Peninsula. "<<endl<<"Islands: Indonesian Archipelago."<<endl;
-cout<<"By choosing Asia, you get the continental bonus of Genetic Cornucopia. ";
-cout<<"This means that at each mutation, there is a 25 percent chance that you will get an extra mutation."<<endl;
-cout<<"Enter Asia in the selection if you want Asia!"<<endl;
-cout<<"Enter any number to continue: ";
-cin>>whocaresc1;
-cout<<endl;
-cout<<endl<<"Your second continent choice is Africa. (don't forget to bless the rains in Africa)!"<<endl;
-cout<<"Africa's six biomes are as follows: "<<endl;
-cout<<"Plains: Serengeti and Okavango Deltas. "<<endl<<"Mountains: Kilimanjaro. "<<endl<<"Forests: Congo Rainforest. "<<endl;
-cout<<"Desert-Plateaux-Mesa: Sahara Desert. "<<endl<<"Coasts: Bight of Benin. "<<endl<<"Islands: Madagascar. "<<endl;
-cout<<"Africa is the colloquial 'Dark Continent', a large land with generally poor citizens. When you begin in Africa, you get the following bonus: "<<endl;
-cout<<"Low Healthcare: At the beginning of the plague, there is a 15 percent chance that the disease spreading rate for the rest of the game decreases by 1. "<<endl;
-cout<<"Enter Africa in the selection if you want Africa!"<<endl;
-cout<<"Enter any number to continue: ";
-cin>>whocaresc2;
-cout<<endl;
-cout<<endl<<"Your third continent choice is South America. A land of mysteries and untouched nature. "<<endl;
-cout<<"South America's six biomes are as follows: "<<endl;
-cout<<"Plains: Pampas and Pantanal. "<<endl<<"Mountains: Andes. "<<endl<<"Forests: Amazon Rainforest. "<<endl;
-cout<<"Deserts-Plateaux-Mesas: Atacama Desert. "<<endl<<"Coasts: Humboldt Current. "<<endl<<"Islands: Galapagos, Easter, and Falklands. "<<endl;
-cout<<"South America is a land where every biome is super-magnified and extremely well-established. Hence you get the following bonus: ";
-cout<<"Secret Survival: If at any point, you get eradicated, you have a 25 percent chance of reviving with a 10-turn base turn number before re-eradication. "<<endl;
-cout<<"Enter South America in the selection if you want South America!"<<endl;
-cout<<"Enter any number to continue: ";
-cin>>whocaresc3;
-cout<<endl;
-cout<<endl<<"Your fourth continent choice is North America. A vast, sparsely populated land, with a great melting pot of cultures. "<<endl;
-cout<<"Full of immigrants! (We come from the land of the ice and snow, From the midnight sun where the hot springs blow)"<<endl;
-cout<<"North America's six biomes are as follows: "<<endl;
-cout<<"Plains: Prairies. "<<endl<<"Mountains: Rockies. "<<endl<<"Forests: Central American Rainforest. "<<endl;
-cout<<"Deserts-Plateaux-Mesas: Mojave Desert. "<<endl<<"Coasts:  Eastern and Western Seaboards. "<<endl<<"Islands: Caribbean and Hawaii. "<<endl;
-cout<<"North America is a sparsely populated land, and as a result, there's a lot of inter-state travel. Hence you get the following bonus: "<<endl;
-cout<<"Border Transport: At each colonization of a new biome, there is a 5% chance that you will colonize another region. "<<endl;
-cout<<"Enter North America in the selection if you want North America!"<<endl;
-cout<<"Enter any number to continue: ";
-cin>>whocaresc4;
-cout<<endl;
-cout<<endl<<"Your fifth continent choice is Oceania. A continent full of water (apart from Australia) with scattered tiny islands all around. Not all settled by humans... "<<endl;
-cout<<"(See the line where the sky meets the sea? It calls me, and no-one knows how far I'll go)"<<endl;
-cout<<"Oceania's six biomes are as follows: "<<endl;
-cout<<"Plains: Canterbury Plains. "<<endl<<"Mountains: Southern Alps. "<<endl<<"Forests: Papua New Guinea. "<<endl;
-cout<<"Deserts-Plateaux-Mesas: Great Victoria Desert. "<<endl<<"Coasts: Great Barrier Reef. "<<endl<<"Islands: South Pacific. "<<endl;
-cout<<"Oceania. Full of water, hard to access all the lands from it. A disease succeeding here will need a strong sense of rejecting environmental changes. Hence you get the following bonus: "<<endl;
-cout<<"Pacific Pacifism: At the beginning of the game, there is a 15 percent that all biome strengths and weaknesses are neglected. "<<endl;
-cout<<"Enter Oceania in the selection if you want Oceania!"<<endl;
-cout<<"Enter any number to continue: ";
-cin>>whocaresc5;
-cout<<endl;
-cout<<endl<<"Your final continent choice is Europe. Rich, cold and hard to conquer, it can rarely be tided over. A challenge for anyone."<<endl;
-cout<<"(It's the final countdown....)"<<endl;
-cout<<"Oceania's six biomes are as follows: "<<endl;
-cout<<"Plains: Steppes. "<<endl<<"Mountains: Alps. "<<endl<<"Forests: Taiga. "<<endl;
-cout<<"Deserts-Plateaux-Mesas: Scandinavia. "<<endl<<"Coasts: Baltic Countries. "<<endl<<"Islands: Greenland. "<<endl;
-cout<<"Europe. After the Black Plague, Europe has emerged as the richest continent. This bonus is negative, as a challenge: "<<endl;
-cout<<"No Warmth Here: Every time you receive a mutation, the number of turns left for your eradication decreases by 2. "<<endl;
-cout<<"Enter Europe in the selection if you want Europe!"<<endl;
-cout<<"Enter any number to continue: ";
-cin>>whocaresc6;
-cout<<endl;
-string continent_choice;
-cout<<"It is now time to select a continent, "<<player_name<<"! Enter the number of the one you'd like: "<<endl;
-int continent_choice;
-string cont_name;
-cout<<"It is now time to select a continent, "<<player_name<<"! Enter the name of the one you'd like: "<<endl;
-cin>>continent_choice;
-if(continent_choice==1)
-    cont_name="Asia";
-else if(continent_choice==2)
-    cont_name="Africa";
-else if(continent_choice==3)
-    cont_name="South America";
-else if(continent_choice==4)
-    cont_name="North America";
-else if(continent_choice==5)
-    cont_name="Oceania";
-else if(continent_choice==6)
-       cont_name="Europe";
-cout<<"You have selected "<<cont_name<<", dear "<<player_name<<"! Let us now begin!"<<endl<<endl;
-cont=continent_choice;
+  getline(cin, player_name);
+  cout<<"Well, welcome, "<<player_name<<"!"<<endl;
+  cout<<"In a short while, we will be a deadly disease and we will be infecting our first human!"<< endl;
+  cout<<"What's your goal in this 'Madness'?"<<endl;
+  cout<<"Are you inspired by Thanos to slay half of all life for the good life itself?"<< endl;
+  cout<<"Or are you a purist disease seeking to cleanse planet Earth of its most widespread disease."<<endl;
+  cout<<"Deep down you know the answer!"<<endl;
+  cout<<"FILTHY HUMANS?"<<endl;
+  cout<<"Ah, but is your real motive simply the base desire of you surviving the longest while others simply 'perish'?"<<endl;
+  cout<<"Or you just want to kill some humans!"<<endl;
+  cout<<"A LOT of them"<<endl;
+  cout<<"Whatever your motives are, we don't judge."<<endl;
+  cout<<"Do know that humanity will not be an easy foe; they will fight back, and will fight hard, real hard!"<< endl;
+  cout<<"With this said, let's get you your weapon!"<<endl;
+  cout<<"Now, my beloved plague-mongerer, "<<player_name<<", it's time to select your Weapon, a.k.a. disease."<<endl;
+  cout<<"Your choices shall appear any moment now."<<endl;
+  cout<<"A word of caution my friend, these are some of the most virulent things to hit humanity"<<endl;
+  cout<<"Both in the past, the present and possibly in the future: "<<endl;
+  cout<<"Every disease has a 'Homeground' or its Locale. This is where it is the strongest."<<endl;
+  cout<<"There are places where this disease is useless!"<<endl;
+  cout<<"Keep this in your mind and proceed with the game!"<<endl;
+  cout<<"When you are prompted to enter the name of your weapon, enter a number from 1 to 4."<<endl;
+  cout<<"Remember, each disease is number coded."<<endl;
+  cout<<"Press any number to continue."<<endl;
+  cin>>d;
+  cout<<"ANTHRAX"<<endl;
+  cout<<"Caused by Bacillus anthracis, Anthrax have spores that can live for a long, long time."<< endl;
+  cout<<"Its symptoms include high fever, fatigue, flu-like symptoms, shock, and in later stages, meningitis. "<<endl;
+  cout<<"A recent developments in biowarfare created inhalatory anthrax, the most dangerous form of anthrax you can get."<<endl;
+  cout<<"Anthrax is strong in Coasts, Mountains, and Plains Biomes, but is weak in Forests and Desert-Plateau-Mesa Biomes."<<endl;
+  cout<<"Press any number to continue."<<endl;
+  cin>>a;
+  cout<<"CHOLERA."<<endl;
+  cout<<"Caused by the bacterium Vibrio cholerae, Cholera is spread through contaminated water."<<endl;
+  cout<<"The rampant pollution of drinking water sources has led to cholera being a highly communicable disease."<<endl;
+  cout<<"Its symptoms include diarrhoea, dehydration, vomiting and cramps."<<endl;
+  cout<<"Cholera is strong in Desert-Plateau-Mesa, Coasts, and Island Biomes, but is weak in Mountain biomes."<<endl;
+  cout<<"Press any number to continue."<<endl;
+  cin>>b;
+  cout<<"TUBERCULOSIS."<<endl;
+  cout<<"Caused by the bacterium Mycobacterium tuberculosis, tuberculosis, a.k.a. consumption, phthisis or just TB, is a deadly disease that spreads via air."<<endl;
+  cout<<"Increasing population presents a problem in maintaining people at a 'safe' distance."<<endl;
+  cout<<"This could be a jackpot!"<<endl;
+  cout<<"Tuberculosis is strong in Mountains, Forests, and Island biomes, but is weak in Plains biomes."<<endl;
+  cout<<"Press any number to continue."<<endl;
+  cin>>c;
+  cout<<"Bubonic Plague. The only disease that does not need bold case."<<endl;
+  cout<<"Caused by the bacterium Yersinia pestis, mainly spreads through the bite of an infected flea."<<endl;
+  cout<<"Proliferation of rats in urban areas, and their fleas has brought about a rise of bubonic plague cases."<<endl;
+  cout<<"It can also spread through direct contact with the infected body tissue or bodily fluids."<<endl;
+  cout<<"Its symptoms include buboes (lymphnode swellings), flu-like symptoms, chills, headaches, and fatigue."<<endl;
+  cout<<"Bubonic Plague is strong in Plains, Forests and Desert-Plateau-Mesa biomes, but is weak in Coasts and Island biomes."<<endl;
+  cout<<"Press any number to continue."<<endl;
+  cin>>e;
+  cout<<"ANTHRAX : 1"<<endl;
+  cout<<"CHOLERA : 2"<<endl;
+  cout<<"TUBERCULOSIS : 3"<<endl;
+  cout<<"Bubonic Plague : 4"<<endl;
+  cout<<"Hope you have made a choice!"<<endl;
+  label:
+  cout<<"Now, dear "<<player_name<<", which disease would you like?"<<endl;
+  int disease_choice;
+  string disease_name;
+  cin>>disease_choice;
+  switch(disease_choice)
+   {
+        case 1:
+            disease_name="Anthrax";
+            cout<<"You have chosen Anthrax! Good choice!";
+            break;
+        case 2:
+            disease_name="Cholera";
+            cout<<"You have chosen Cholera! Good choice!";
+            break;
+        case 3:
+            disease_name="Tuberculosis";
+            cout<<"You have chosen Tuberculosis! Good choice! ";
+            break;
+        case 4:
+            disease_name="Bubonic Plague";
+            cout<<"You have chosen Bubonic Plague! Good choice! ";
+            break;
+        default:
+            cout<<"Having second thoughts, "<<player_name<<"? Try chosing your weapon from the catalogue again?";
+            goto label;
+   }
+	cout<<endl<<"Choose a continent"<<endl<<"1.Asia"<<endl<<"2.Africa"<<endl<<"3.South America"<<endl<<"4.North America"<<endl<<"5.Oceania"<<endl<<"6.Europe";
+	cin>>cont;
 	srand(time(NULL));
 	int bmi=rand()%6;
 	ct[0]=cont-1;
@@ -622,7 +533,7 @@ cont=continent_choice;
 	mcrb.disease=disease_choice;
 	Biome[ct[0]][ct[1]].BCR=assignbcr(mcrb,Biome[ct[0]][ct[1]]);
 	mcrb.countdn(ct,mcrb);
-    sleep(2);
+    sleep(1);
 	
 	for(int i=0;i<36;i++)
 	{
