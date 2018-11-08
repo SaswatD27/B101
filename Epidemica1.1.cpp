@@ -257,7 +257,7 @@ void microbe::countdn(int ct[], microbe mcrb)
 			cout <<endl<< "You will receive a mutation in " << mutarate << " turns." <<endl;
 			--mutarate;
 			Biome[ct[0]][ct[1]].BCR--;
-			cout <<endl<<" Rate of country colonization is now " << Biome[ct[0]][ct[1]].BCR << ". "<<endl;
+			cout <<endl<<" Turns left for biome colonization is now " << Biome[ct[0]][ct[1]].BCR << ". "<<endl;
 			cout<<"You now have "<<--mcrb.BER<<" turns left before eradication."<<endl;
 			if(mcrb.BER==0)
 			{
