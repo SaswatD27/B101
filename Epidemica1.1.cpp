@@ -87,7 +87,7 @@ class microbe
 	int BER,BMR,continenti, ncqr,disease; 
 	microbe()
 	{
-		BER=10000;
+		BER=100;
 		ncqr=0;
 		BMR=5;
 	}
@@ -99,7 +99,7 @@ int baseBCR;
 int assignbcr(microbe mcrb,place p)
 {
 		int BCR=6;
-		if(mcrb.BER==200)
+		if(mcrb.BER==100)
 		switch (p.biometype)
 		{
 			case 1:if(mcrb.disease==1||mcrb.disease==4)
@@ -260,7 +260,10 @@ void microbe::countdn(int ct[], microbe mcrb)
 			cout <<endl<<" Rate of country colonization is now " << Biome[ct[0]][ct[1]].BCR << ". "<<endl;
 			cout<<"You now have "<<--mcrb.BER<<" turns left before eradication."<<endl;
 			if(mcrb.BER==0)
-			cout<<endl<<"You have been ERADICATED";
+			{
+				cout<<endl<<"You have been ERADICATED";
+				exit(0);
+			}
 			if(Biome[ct[0]][ct[1]].BCR<=0)
 			{
 				mcrb.ncqr++;
@@ -524,7 +527,7 @@ int main()
             cout<<"Having second thoughts, "<<player_name<<"? Try chosing your weapon from the catalogue again?";
             goto label;
    }
-	cout<<endl<<"Choose a continent"<<endl<<"1.Asia"<<endl<<"2.Africa"<<endl<<"3.South America"<<endl<<"4.North America"<<endl<<"5.Oceania"<<endl<<"6.Europe";
+	cout<<endl<<"Choose a continent"<<endl<<"1.Asia"<<endl<<"2.Africa"<<endl<<"3.South America"<<endl<<"4.North America"<<endl<<"5.Oceania"<<endl<<"6.Europe"<<endl;
 	cin>>cont;
 	srand(time(NULL));
 	int bmi=rand()%6;
