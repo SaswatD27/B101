@@ -184,7 +184,7 @@ void gotoneigh(int ct[],microbe mcrb,place Biome[6][6])//p=Biome[ct[0]],p[]=Biom
 			goto st;
 			else if(chkemp==0)
 			{
-				cout<<endl<<"Continent CONQUERED!";
+				cout<<endl<<Biome[ct[0]][ct[1]].contname<<" CONQUERED!";
 				for(int i=0;i<6;i++)
 				{
 					Biome[ct[0]][i].contcqr=1;	
@@ -247,7 +247,7 @@ void microbe::countdn(int ct[], microbe mcrb)
 	int BER_fall;
 	int mutalast = 10;
 	string mutaname;//add BCR as parameter
-	while(mcrb.BER!=0)
+	while(mcrb.BER>0)
 	{
 		srand (time (NULL));
 		mutarate = rand () % ((highestRate - lowestRate) + 1) + lowestRate;
@@ -434,7 +434,7 @@ int main()
 		}
 	}
   cout<<"Welcome to Epidemica, the disease spread simulator!"<<endl;
-  cout<<"Here, you play the role of a deadly disease whose sole purpose is to clense the world!"<<endl;
+  cout<<"Here, you play the role of a deadly disease whose sole purpose is to cleanse the world!"<<endl;
   cout<<"From what?"<<endl;
   cout<<"Deep down you know the answer!"<<endl;
   cout<<"HUMANS!"<<endl;
@@ -535,6 +535,7 @@ int main()
 	ct[1]=bmi;
 	mcrb.disease=disease_choice;
 	Biome[ct[0]][ct[1]].BCR=assignbcr(mcrb,Biome[ct[0]][ct[1]]);
+	cout<<"Starting at "<<Biome[ct[0]][ct[1]].name<<" in "<<Biome[ct[0]][ct[1]].contname<<endl<<"Biome Type - "<<Biome[ct[0]][ct[1]].btype;
 	mcrb.countdn(ct,mcrb);
     sleep(1);
 	
