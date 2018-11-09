@@ -159,7 +159,8 @@ void gotoneigh(int ct[],microbe mcrb,place Biome[6][6])//p=Biome[ct[0]],p[]=Biom
 	{
 		if(mcrb.ncqr==36)
 		{
-			cout<<"YOU DA REAL SCOURGE OF HUMANKIND!"<<endl<<"CONGRATULATIONS, you have conquered the WORLD!";
+			cout<<"YOU DA REAL SCOURGE OF HUMANKIND!"<<endl<<"CONGRATULATIONS, you have conquered the WORLD!"<<endl<<endl;
+			cout<<"No. of Biomes conquered - "<<mcrb.ncqr;
 			exit(0);
 		}
 		int b;
@@ -261,7 +262,8 @@ void microbe::countdn(int ct[], microbe mcrb)
 			cout<<"You now have "<<--mcrb.BER<<" turns left before eradication."<<endl;
 			if(mcrb.BER==0)
 			{
-				cout<<endl<<"You have been ERADICATED";
+				cout<<endl<<"You have been ERADICATED"<<endl<<endl;
+				cout<<"No. of Biomes conquered - "<<mcrb.ncqr;
 				exit(0);
 			}
 			if(Biome[ct[0]][ct[1]].BCR<=0)
